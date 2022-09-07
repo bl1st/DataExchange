@@ -31,7 +31,6 @@ public class SettingsActivity extends AppCompatActivity {
 
     }
 
-
     public void onButtonApply_Click(View v){
 
         Intent i = new Intent();

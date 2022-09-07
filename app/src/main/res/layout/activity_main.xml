@@ -43,6 +43,14 @@
             android:layout_weight="1"
             android:onClick="onButtonSettings_Click"
             android:text="Settings" />
+
+        <Button
+            android:id="@+id/btn_clearchat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:onClick="onButtonClearChat_Click"
+            android:text="Clear" />
     </LinearLayout>
 
     <LinearLayout

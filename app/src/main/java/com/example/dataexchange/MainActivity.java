@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -48,12 +49,14 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        tv_messages = findViewById(R.id.tv_messages);
+        tv_messages.setMovementMethod(new ScrollingMovementMethod());
         settings[0] = "Student";
         settings[1] = "192.168.0.1";
         settings[2] = "9000";
         settings[3] = "9000";
 
-        tv_messages = findViewById(R.id.tv_messages);
+
         g.messages = new DB(this, "messages.db", null, 1);
         ArrayList<Message> messages = new ArrayList<Message>();
         g.messages.LoadHistory(messages);
@@ -131,6 +134,10 @@ public class MainActivity extends AppCompatActivity {
         local_address = new InetSocketAddress(local_network, Integer.parseInt(settings[3]));
     }
 
+    public void onButtonClearChat_Click(View v){
+        tv_messages.setText(null);
+
+    }
 
     DatagramPacket send_packet;
     public void onButtonSendMessage_Click(View v){
@@ -160,6 +167,15 @@ public class MainActivity extends AppCompatActivity {
                     socket.send(send_packet);
                     Log.e("TEST","PACKET SENT");
                     g.messages.SaveMessage(m);
+                    String previuos_text = tv_messages.getText().toString();
+                    previuos_text += "\n" + m.toString();
+                    String finalPreviuos_text = previuos_text;
+
+                    runOnUiThread(() ->{
+                        tv_messages.setText(finalPreviuos_text);
+                    });
+
+
                 } catch (IOException e) { e.printStackTrace(); }
             }
         };
@@ -168,8 +184,6 @@ public class MainActivity extends AppCompatActivity {
         send_thread.start();
 
     }
-
-
 
     public void onButtonSettings_Click(View v) {
 
