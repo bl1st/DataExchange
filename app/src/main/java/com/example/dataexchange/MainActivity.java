@@ -28,22 +28,18 @@ import java.util.Date;
 import java.sql.Timestamp;
 import java.time.Instant;
 import java.util.ArrayList;
-
-
 public class MainActivity extends AppCompatActivity {
 
     DatagramSocket socket;
     TextView tv_messages;
     SocketAddress local_address;
-    InetAddress local_network;
+    InetAddress local_network; //493 balanin
     String[] settings = new String[4];
     //settings[0] - name
     //settings[1] - ip
     //settings[2] - sendPort
     //settings[3] - recievePort
-
     byte[]  recieve_buffer = new byte[100];
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -129,19 +125,14 @@ public class MainActivity extends AppCompatActivity {
         }
         super.onActivityResult(requestCode, resultCode, data);
     }
-
     private void ChangeData() {
         local_address = new InetSocketAddress(local_network, Integer.parseInt(settings[3]));
     }
-
     public void onButtonClearChat_Click(View v){
         tv_messages.setText(null);
-
     }
-
     DatagramPacket send_packet;
     public void onButtonSendMessage_Click(View v){
-
         EditText et_msg = findViewById(R.id.et_message);
         String msg = et_msg.getText().toString();
 
@@ -174,25 +165,17 @@ public class MainActivity extends AppCompatActivity {
                     runOnUiThread(() ->{
                         tv_messages.setText(finalPreviuos_text);
                     });
-
-
                 } catch (IOException e) { e.printStackTrace(); }
             }
         };
-
         Thread send_thread = new Thread(r);
         send_thread.start();
-
     }
-
     public void onButtonSettings_Click(View v) {
-
         Intent i = new Intent(this, SettingsActivity.class);
         i.putExtra("ip", settings[1]);
         i.putExtra("sendPort", settings[2]);
         i.putExtra("recievePort",settings[3]);
         i.putExtra("name",settings[0]);
-        startActivityForResult(i,555);
-
-    }
+        startActivityForResult(i,555); }
 }

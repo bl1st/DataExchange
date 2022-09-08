@@ -11,7 +11,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 public class SettingsActivity extends AppCompatActivity {
-
+    //493 balanin
     EditText ip,send_port,recieve_port,name;
     @Override
     protected void onCreate(Bundle savedInstanceState) {

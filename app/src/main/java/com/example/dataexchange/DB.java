@@ -14,20 +14,16 @@ public class DB extends SQLiteOpenHelper {
     public DB(@Nullable Context context, @Nullable String name, @Nullable SQLiteDatabase.CursorFactory factory, int version) {
         super(context, name, factory, version);
     }
-
     @Override
     public void onCreate(SQLiteDatabase db) {
         String sql = "CREATE TABLE messages (IP TEXT,PORT TEXT,NAME TEXT,MESSAGE TEXT, DATE INTEGER);";
         db.execSQL(sql);
     }
-
-    public void SaveMessage(Message m)
-    {
+    public void SaveMessage(Message m) {
         SQLiteDatabase db = getWritableDatabase();
         String sql = "INSERT INTO messages VALUES ('" + m.IP + "','" + m.Port + "','" + m.Name + "','" + m.Text + "'," + m.DateTime.getTime() + ");";
         db.execSQL(sql);
     }
-
    public void LoadHistory(ArrayList<Message> lst){
        SQLiteDatabase db = getReadableDatabase();
        String sql = "SELECT * FROM messages";
@@ -44,15 +40,12 @@ public class DB extends SQLiteOpenHelper {
 
            }while (cur.moveToNext() == true);
        }
-
    }
     public void CLEARALLTABLE(){
         SQLiteDatabase db = getWritableDatabase();
         String sql = "DELETE FROM messages";
         db.execSQL(sql);
-
     }
-
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
     }
